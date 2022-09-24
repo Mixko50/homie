@@ -1,0 +1,7 @@
+auto_migrate: false
+cors:
+  - http://localhost:8080
+  - http://localhost:3000
+
+jwt_secret: mixko50sus
+mysql_config: mixkomii:apisitmaneerat@tcp(server2.mixkoap.com:6111)/mixko-home?charset=utf8mb4&parseTime=True&loc=Local
