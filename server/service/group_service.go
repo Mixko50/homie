@@ -4,7 +4,9 @@ import (
 	"gorm.io/gorm"
 	"server/repository"
 	"server/types/error_response"
+	"server/types/request"
 	"server/types/response"
+	"server/utils/bcrypt"
 )
 
 type groupService struct {
@@ -60,4 +62,36 @@ func (s groupService) GetGroupById(id uint) (*response.GetGroupResponse, error) 
 	}
 
 	return &groupResponse, nil
+}
+
+func (s groupService) CreateGroup(request request.CreateGroupRequest) error {
+	// * Hash password
+	hashedPassword, err := bcrypt.HashPassword(request.Password)
+	if err != nil {
+		return &error_response.Error{
+			Message: "Unable to perform the password",
+		}
+	}
+
+	// * Check duplicate name
+	isDuplicate, err := s.groupRepository.CheckDuplicateName(request.Name)
+	if err != nil {
+		return &error_response.Error{
+			Message: "Unable to check duplicate name",
+		}
+	} else {
+		if isDuplicate {
+			return &error_response.Error{
+				Message: "Duplicate name",
+			}
+		}
+	}
+
+	// * Create group
+	if err := s.groupRepository.CreateGroup(request.Name, hashedPassword); err != nil {
+		return &error_response.Error{
+			Message: "Unable to create group",
+		}
+	}
+	return nil
 }

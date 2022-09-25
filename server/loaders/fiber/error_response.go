@@ -31,7 +31,7 @@ func errorResponse(c *fiber.Ctx, err error) error {
 			Code:    "VALIDATION_ERROR",
 			Message: "Validation error",
 			Data:    lists,
-			Err:     err,
+			//Err:     err,
 		})
 	}
 

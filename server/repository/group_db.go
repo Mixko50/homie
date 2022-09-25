@@ -27,3 +27,25 @@ func (r groupRepositoryDb) GetById(id uint) (*Group, error) {
 	}
 	return group, nil
 }
+
+func (r groupRepositoryDb) CreateGroup(name, password string) error {
+	group := Group{
+		Name:     name,
+		Password: password,
+	}
+	if result := r.db.Create(&group); result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+func (r groupRepositoryDb) CheckDuplicateName(name string) (bool, error) {
+	var group = new(Group)
+	if result := r.db.Select("name").First(&group, "name = ?", name); result.Error != nil {
+		if result.Error.Error() == gorm.ErrRecordNotFound.Error() {
+			return false, nil
+		}
+		return false, result.Error
+	}
+	return true, nil
+}

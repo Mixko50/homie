@@ -17,7 +17,8 @@ func Router(router fiber.Router) {
 	groupHandler := handler.NewGroupHandler(groupService)
 
 	// * Paths ------------------------------------------------
-	group := router.Group("group/info/")
-	group.Get("all", groupHandler.GetAllGroups)
-	group.Get(":id", groupHandler.GetGroupById)
+	group := router.Group("group/")
+	group.Get("info/all", groupHandler.GetAllGroups)
+	group.Get("info/:id", groupHandler.GetGroupById)
+	group.Post("create", groupHandler.CreateGroup)
 }
