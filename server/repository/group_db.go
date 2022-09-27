@@ -2,6 +2,7 @@ package repository
 
 import (
 	"gorm.io/gorm"
+	"time"
 )
 
 type groupRepositoryDb struct {
@@ -28,10 +29,11 @@ func (r groupRepositoryDb) GetById(id uint) (*Group, error) {
 	return group, nil
 }
 
-func (r groupRepositoryDb) CreateGroup(name, password string) error {
+func (r groupRepositoryDb) CreateGroup(name, password string, time time.Time) error {
 	group := Group{
-		Name:     name,
-		Password: password,
+		Name:      name,
+		Password:  password,
+		CreatedAt: time,
 	}
 	if result := r.db.Create(&group); result.Error != nil {
 		return result.Error

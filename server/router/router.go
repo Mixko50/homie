@@ -16,9 +16,19 @@ func Router(router fiber.Router) {
 	groupService := service.NewGroupService(groupRepository)
 	groupHandler := handler.NewGroupHandler(groupService)
 
+	// * Member
+	memberRepository := repository.NewMemberRepositoryDb(database.DB)
+	memberService := service.NewMemberService(memberRepository)
+	memberHandler := handler.NewMemberHandler(memberService)
+
 	// * Paths ------------------------------------------------
 	group := router.Group("group/")
 	group.Get("info/all", groupHandler.GetAllGroups)
 	group.Get("info/:id", groupHandler.GetGroupById)
 	group.Post("create", groupHandler.CreateGroup)
+
+	member := router.Group("member/")
+	member.Get("info/all", memberHandler.GetAllMembers)
+	member.Get("info/:id", memberHandler.GetMemberById)
+	member.Post("create", memberHandler.CreateMember)
 }

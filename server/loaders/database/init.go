@@ -41,6 +41,7 @@ func migrate(db *gorm.DB) error {
 	// * Migrate model
 	if err := db.AutoMigrate(
 		new(repository.Group),
+		new(repository.Member),
 	); err != nil {
 		return err
 	}
