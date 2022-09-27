@@ -21,9 +21,9 @@ func errorResponse(c *fiber.Ctx, err error) error {
 
 	// * Case of validator.ValidationErrors
 	if e, ok := err.(validator.ValidationErrors); ok {
-		var lists []string
-		for _, err := range e {
-			lists = append(lists, err.Error())
+		var lists = make([]string, len(e))
+		for i, err := range e {
+			lists[i] = err.Error()
 		}
 
 		return c.Status(fiber.StatusBadRequest).JSON(error_response.Error{
