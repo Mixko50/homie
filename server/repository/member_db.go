@@ -29,14 +29,13 @@ func (r memberRepositoryDb) GetById(id uint64) (*Member, error) {
 	return &member, nil
 }
 
-func (r memberRepositoryDb) CreateMember(name, deviceName string, groupId uint64, agent string, time time.Time) (*Member, error) {
+func (r memberRepositoryDb) CreateMember(name string, groupId uint64, agent string, time time.Time) (*Member, error) {
 	member := Member{
-		Name:       name,
-		DeviceName: deviceName,
-		GroupId:    groupId,
-		UserAgent:  agent,
-		CreatedAt:  time,
-		UpdatedAt:  time,
+		Name:      name,
+		GroupId:   groupId,
+		UserAgent: agent,
+		CreatedAt: time,
+		UpdatedAt: time,
 	}
 	if result := r.db.Create(&member); result.Error != nil {
 		return nil, result.Error
@@ -44,7 +43,7 @@ func (r memberRepositoryDb) CreateMember(name, deviceName string, groupId uint64
 	return &member, nil
 }
 
-func (r memberRepositoryDb) CheckDuplicateNameInGroup(name string, id uint64) (bool, error) {
+func (r memberRepositoryDb) CheckDuplicateNameInMember(name string, id uint64) (bool, error) {
 	var member = new(Member)
 	if result := r.db.Select("name").First(&member, "name = ? AND group_id = ?", name, id); result.Error != nil {
 		if result.Error.Error() == gorm.ErrRecordNotFound.Error() {

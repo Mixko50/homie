@@ -18,7 +18,7 @@ func Router(router fiber.Router) {
 
 	// * Member
 	memberRepository := repository.NewMemberRepositoryDb(database.DB)
-	memberService := service.NewMemberService(memberRepository)
+	memberService := service.NewMemberService(memberRepository, groupRepository)
 	memberHandler := handler.NewMemberHandler(memberService)
 
 	// * Paths ------------------------------------------------

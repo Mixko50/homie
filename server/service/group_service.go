@@ -44,7 +44,7 @@ func (s groupService) GetAllGroups() ([]response.GetGroupResponse, error) {
 	return groupResponse, nil
 }
 
-func (s groupService) GetGroupById(id uint) (*response.GetGroupResponse, error) {
+func (s groupService) GetGroupById(id uint64) (*response.GetGroupResponse, error) {
 	group, err := s.groupRepository.GetById(id)
 	if err != nil {
 		if err.Error() == gorm.ErrRecordNotFound.Error() {

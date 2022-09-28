@@ -21,7 +21,7 @@ func (r groupRepositoryDb) GetAll() ([]Group, error) {
 	return groups, nil
 }
 
-func (r groupRepositoryDb) GetById(id uint) (*Group, error) {
+func (r groupRepositoryDb) GetById(id uint64) (*Group, error) {
 	var group = new(Group)
 	if result := r.db.Select("id", "name").First(&group, "id = ?", id); result.Error != nil {
 		return nil, result.Error
@@ -50,4 +50,12 @@ func (r groupRepositoryDb) CheckDuplicateName(name string) (bool, error) {
 		return false, result.Error
 	}
 	return true, nil
+}
+
+func (r groupRepositoryDb) GetByIdWithPassword(id uint64) (*Group, error) {
+	var group = new(Group)
+	if result := r.db.Select("id", "name", "password").First(&group, "id = ?", id); result.Error != nil {
+		return nil, result.Error
+	}
+	return group, nil
 }

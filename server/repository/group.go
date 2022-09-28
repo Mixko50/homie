@@ -11,7 +11,8 @@ type Group struct {
 
 type GroupRepository interface {
 	GetAll() ([]Group, error)
-	GetById(uint) (*Group, error)
+	GetById(uint64) (*Group, error)
 	CreateGroup(name, password string, time time.Time) error
 	CheckDuplicateName(name string) (bool, error)
+	GetByIdWithPassword(uint64) (*Group, error)
 }

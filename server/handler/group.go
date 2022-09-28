@@ -34,7 +34,7 @@ func (h groupHandler) GetGroupById(c *fiber.Ctx) error {
 	}
 
 	// * Get group
-	group, err := h.groupService.GetGroupById(uint(id))
+	group, err := h.groupService.GetGroupById(id)
 	if err != nil {
 		return err
 	}

@@ -7,6 +7,6 @@ import (
 
 type GroupService interface {
 	GetAllGroups() ([]response.GetGroupResponse, error)
-	GetGroupById(uint) (*response.GetGroupResponse, error)
+	GetGroupById(uint64) (*response.GetGroupResponse, error)
 	CreateGroup(request request.CreateGroupRequest) error
 }

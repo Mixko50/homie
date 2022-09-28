@@ -6,6 +6,7 @@ import (
 	"server/types/request"
 	"server/types/response"
 	"server/types/secure"
+	"server/utils/bcrypt"
 	"server/utils/sign"
 	"server/utils/text"
 	"time"
@@ -13,10 +14,11 @@ import (
 
 type memberService struct {
 	memberRepository repository.MemberRepository
+	groupRepository  repository.GroupRepository
 }
 
-func NewMemberService(memberRepository repository.MemberRepository) memberService {
-	return memberService{memberRepository: memberRepository}
+func NewMemberService(memberRepository repository.MemberRepository, groupRepository repository.GroupRepository) memberService {
+	return memberService{memberRepository: memberRepository, groupRepository: groupRepository}
 }
 
 func (s memberService) GetAllMembers() ([]response.GetMemberResponse, error) {
@@ -32,11 +34,10 @@ func (s memberService) GetAllMembers() ([]response.GetMemberResponse, error) {
 	var memberResponse []response.GetMemberResponse
 	for _, v := range members {
 		memberResponse = append(memberResponse, response.GetMemberResponse{
-			Id:         v.Id,
-			Name:       v.Name,
-			DeviceName: v.DeviceName,
-			CreatedAt:  text.FormatTime(v.CreatedAt),
-			UpdatedAt:  text.FormatTime(v.UpdatedAt),
+			Id:        v.Id,
+			Name:      v.Name,
+			CreatedAt: text.FormatTime(v.CreatedAt),
+			UpdatedAt: text.FormatTime(v.UpdatedAt),
 		})
 	}
 
@@ -54,18 +55,32 @@ func (s memberService) GetMemberById(id uint64) (*response.GetMemberResponse, er
 
 	// * Convert to response
 	memberResponse := response.GetMemberResponse{
-		Id:         member.Id,
-		Name:       member.Name,
-		DeviceName: member.DeviceName,
-		CreatedAt:  text.FormatTime(member.CreatedAt),
-		UpdatedAt:  text.FormatTime(member.UpdatedAt),
+		Id:        member.Id,
+		Name:      member.Name,
+		CreatedAt: text.FormatTime(member.CreatedAt),
+		UpdatedAt: text.FormatTime(member.UpdatedAt),
 	}
 
 	return &memberResponse, nil
 }
 
 func (s memberService) CreateMember(request request.CreateMemberRequest, agent string) (*response.CreateMemberResponse, error) {
-	isDuplicate, err := s.memberRepository.CheckDuplicateNameInGroup(request.Name, request.GroupId)
+	// * Check group password
+	group, err := s.groupRepository.GetByIdWithPassword(request.GroupId)
+	if err != nil {
+		return nil, &error_response.Error{
+			Message: "Group not found",
+			Err:     err,
+		}
+	}
+	if !bcrypt.ComparePassword(group.Password, request.GroupPassword) {
+		return nil, &error_response.Error{
+			Message: "Group password is incorrect",
+			Err:     err,
+		}
+	}
+
+	isDuplicate, err := s.memberRepository.CheckDuplicateNameInMember(request.Name, request.GroupId)
 	if err != nil {
 		return nil, &error_response.Error{
 			Message: "Unable to check duplicate name",
@@ -74,12 +89,12 @@ func (s memberService) CreateMember(request request.CreateMemberRequest, agent s
 	}
 	if isDuplicate {
 		return nil, &error_response.Error{
-			Message: "Duplicate name",
+			Message: "Duplicated name",
 			Err:     err,
 		}
 	}
 
-	member, err := s.memberRepository.CreateMember(request.Name, request.DeviceName, request.GroupId, agent, time.Now())
+	member, err := s.memberRepository.CreateMember(request.Name, request.GroupId, agent, time.Now())
 	if err != nil {
 		return nil, &error_response.Error{
 			Message: "Unable to create member",
