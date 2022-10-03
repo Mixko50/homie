@@ -7,7 +7,6 @@ import (
 	"server/types/request"
 	"server/types/response"
 	"server/utils/bcrypt"
-	"server/utils/text"
 	"time"
 )
 
@@ -90,7 +89,7 @@ func (s groupService) CreateGroup(request request.CreateGroupRequest) error {
 	}
 
 	// * Create group
-	if err := s.groupRepository.CreateGroup(request.Name, hashedPassword, text.FormatTime(time.Now())); err != nil {
+	if err := s.groupRepository.CreateGroup(request.Name, hashedPassword, time.Now()); err != nil {
 		return &error_response.Error{
 			Message: "Unable to create group",
 		}

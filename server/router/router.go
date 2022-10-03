@@ -27,6 +27,11 @@ func Router(router fiber.Router) {
 	accessoryService := service.NewAccessoryService(accessoryRepository, groupRepository)
 	accessoryHandler := handler.NewAccessoryHandler(accessoryService)
 
+	// * Accessory State
+	accessoryStateRepository := repository.NewAccessoryStateRepository(database.DB)
+	accessoryStateService := service.NewAccessoryStateService(accessoryStateRepository)
+	accessoryStateHandler := handler.NewAccessoryStateHandler(accessoryStateService)
+
 	// * Paths ------------------------------------------------
 	group := router.Group("group/")
 	group.Get("info/all", groupHandler.GetAllGroups)
@@ -44,4 +49,13 @@ func Router(router fiber.Router) {
 	accessory.Get("info/group", accessoryHandler.GetAllAccessoryInGroup)
 	accessory.Get("info/:accessory_id", accessoryHandler.GetAccessoryById)
 	accessory.Post("create", accessoryHandler.CreateAccessory)
+
+	accessoryState := router.Group("accessory/state/", middleware.Jwt())
+	accessoryState.Get("info/all", accessoryStateHandler.GetAllAccessoryStates)
+	accessoryState.Get("info/:accessory_id", accessoryStateHandler.GetAccessoryStateById)
+	accessoryState.Get("info/group", accessoryStateHandler.GetAllAccessoryStatesInGroup)
+	accessoryState.Get("info/group/member", accessoryStateHandler.GetAllAccessoryStatesInGroupByMember)
+	accessoryState.Get("info/group/accessory", accessoryStateHandler.GetAllAccessoryStatesInGroupByAccessory)
+	accessoryState.Get("info/group/member/accessory", accessoryStateHandler.GetAllAccessoryStatesInGroupByMemberAndAccessory)
+	accessoryState.Post("create", accessoryStateHandler.CreateAccessoryState)
 }
