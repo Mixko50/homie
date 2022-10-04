@@ -50,7 +50,7 @@ func Router(router fiber.Router) {
 	accessory.Get("info/:accessory_id", accessoryHandler.GetAccessoryById)
 	accessory.Post("create", accessoryHandler.CreateAccessory)
 
-	accessoryState := router.Group("accessory/state/", middleware.Jwt())
+	accessoryState := router.Group("accessory/state/", middleware.Jwt(), middleware.VerifyUserAgent)
 	accessoryState.Get("info/all", accessoryStateHandler.GetAllAccessoryStates)
 	accessoryState.Get("info/group", accessoryStateHandler.GetAllAccessoryStatesInGroup)
 	accessoryState.Get("info/group/member", accessoryStateHandler.GetAllAccessoryStatesInGroupByMember)

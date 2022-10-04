@@ -104,5 +104,5 @@ func (h accessoryStateHandler) CreateAccessoryState(c *fiber.Ctx) error {
 	if err := h.accessoryStateService.CreateAccessoryState(*body, claims.GroupId, claims.MemberId); err != nil {
 		return err
 	}
-	return c.JSON(info_response.NewInfoResponse(nil))
+	return c.JSON(info_response.NewInfoResponse("Accessory state is created"))
 }

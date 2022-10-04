@@ -6,4 +6,5 @@ type config struct {
 	Cors        []string `yaml:"cors"`
 	JwtSecret   string   `yaml:"jwt_secret"`
 	MySqlConfig string   `yaml:"mysql_config"`
+	UserAgent   string   `yaml:"user_agent"`
 }
