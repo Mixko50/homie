@@ -2,6 +2,7 @@ package service
 
 import (
 	"server/repository"
+	"server/types/error_response"
 	"server/types/request"
 	"server/types/response"
 )
@@ -17,7 +18,9 @@ func NewAccessoryStateService(accessoryStateRepository repository.AccessoryState
 func (s accessoryStateService) GetAllAccessoryStates() ([]response.GetAccessoryStateResponse, error) {
 	accessoryStates, err := s.accessoryStateRepository.GetAll()
 	if err != nil {
-		return nil, err
+		return nil, &error_response.Error{
+			Message: "Unable to get all accessory states",
+		}
 	}
 
 	// * Convert to response
@@ -39,7 +42,9 @@ func (s accessoryStateService) GetAllAccessoryStates() ([]response.GetAccessoryS
 func (s accessoryStateService) GetAccessoryStateById(id uint64) (*response.GetAccessoryStateResponse, error) {
 	accessoryState, err := s.accessoryStateRepository.GetById(id)
 	if err != nil {
-		return nil, err
+		return nil, &error_response.Error{
+			Message: "Unable to accessory state",
+		}
 	}
 
 	// * Convert to response
@@ -58,7 +63,9 @@ func (s accessoryStateService) GetAccessoryStateById(id uint64) (*response.GetAc
 func (s accessoryStateService) GetAllAccessoryStatesInGroup(group uint64) ([]response.GetAccessoryStateResponse, error) {
 	accessoryState, err := s.accessoryStateRepository.GetAllInGroup(group)
 	if err != nil {
-		return nil, err
+		return nil, &error_response.Error{
+			Message: "Unable to get all accessory states",
+		}
 	}
 
 	// * Convert to response
@@ -80,7 +87,9 @@ func (s accessoryStateService) GetAllAccessoryStatesInGroup(group uint64) ([]res
 func (s accessoryStateService) GetAllAccessoryStatesInGroupByMember(groupId, memberId uint64) ([]response.GetAccessoryStateResponse, error) {
 	accessoryState, err := s.accessoryStateRepository.GetAllInGroupByMember(groupId, memberId)
 	if err != nil {
-		return nil, err
+		return nil, &error_response.Error{
+			Message: "Unable to get all accessory states",
+		}
 	}
 
 	// * Convert to response
@@ -102,7 +111,9 @@ func (s accessoryStateService) GetAllAccessoryStatesInGroupByMember(groupId, mem
 func (s accessoryStateService) GetAllAccessoryStatesInGroupByAccessory(accessoryId, groupId uint64) ([]response.GetAccessoryStateResponse, error) {
 	accessoryState, err := s.accessoryStateRepository.GetAllByAccessoryIdInGroup(accessoryId, groupId)
 	if err != nil {
-		return nil, err
+		return nil, &error_response.Error{
+			Message: "Unable to get all accessory states",
+		}
 	}
 
 	// * Convert to response
@@ -124,7 +135,9 @@ func (s accessoryStateService) GetAllAccessoryStatesInGroupByAccessory(accessory
 func (s accessoryStateService) GetAllAccessoryStatesInGroupByMemberAndAccessory(accessoryId, groupId, memberId uint64) ([]response.GetAccessoryStateResponse, error) {
 	accessoryState, err := s.accessoryStateRepository.GetAllByAccessoryIdAndMemberIdInGroup(accessoryId, groupId, memberId)
 	if err != nil {
-		return nil, err
+		return nil, &error_response.Error{
+			Message: "Unable to get all accessory states",
+		}
 	}
 
 	// * Convert to response
@@ -146,7 +159,9 @@ func (s accessoryStateService) GetAllAccessoryStatesInGroupByMemberAndAccessory(
 func (s accessoryStateService) CreateAccessoryState(request request.CreateAccessoryStateRequest, groupId, memberId uint64) error {
 	err := s.accessoryStateRepository.CreateAccessoryState(request.AccessoryId, groupId, memberId, request.State)
 	if err != nil {
-		return err
+		return &error_response.Error{
+			Message: "Unable get all accessory states",
+		}
 	}
 	return nil
 }

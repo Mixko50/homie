@@ -43,6 +43,7 @@ func migrate(db *gorm.DB) error {
 		new(repository.Group),
 		new(repository.Member),
 		new(repository.Accessory),
+		new(repository.AccessoryState),
 	); err != nil {
 		return err
 	}
