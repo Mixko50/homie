@@ -1,6 +1,7 @@
 package service
 
 import (
+	"server/mappers"
 	"server/repository"
 	"server/types/error_response"
 	"server/types/request"
@@ -28,17 +29,7 @@ func (s accessoryService) GetAllAccessories() ([]response.GetAccessoryResponse, 
 	}
 
 	// * Convert to response
-	var accessoriesResponse []response.GetAccessoryResponse
-	for _, accessory := range accessories {
-		accessoriesResponse = append(accessoriesResponse, response.GetAccessoryResponse{
-			Id:        accessory.Id,
-			Name:      accessory.Name,
-			GroupId:   accessory.GroupId,
-			GroupName: accessory.Group.Name,
-			UpdatedAt: accessory.UpdatedAt,
-			CreatedAt: accessory.CreatedAt,
-		})
-	}
+	accessoriesResponse := mappers.MapAccessoriesResponse(accessories)
 
 	return accessoriesResponse, nil
 }
@@ -53,14 +44,7 @@ func (s accessoryService) GetAccessoryById(id uint64) (*response.GetAccessoryRes
 	}
 
 	// * Convert to response
-	accessoryResponse := response.GetAccessoryResponse{
-		Id:        accessory.Id,
-		Name:      accessory.Name,
-		GroupId:   accessory.GroupId,
-		GroupName: accessory.Group.Name,
-		UpdatedAt: accessory.UpdatedAt,
-		CreatedAt: accessory.CreatedAt,
-	}
+	accessoryResponse := mappers.MapAccessoryResponse(*accessory)
 
 	return &accessoryResponse, nil
 }
@@ -114,17 +98,7 @@ func (s accessoryService) GetAllAccessoriesInGroup(id uint64) ([]response.GetAcc
 	}
 
 	// * Convert to response
-	var accessoriesResponse []response.GetAccessoryResponse
-	for _, accessory := range accessories {
-		accessoriesResponse = append(accessoriesResponse, response.GetAccessoryResponse{
-			Id:        accessory.Id,
-			Name:      accessory.Name,
-			GroupId:   accessory.GroupId,
-			GroupName: accessory.Group.Name,
-			UpdatedAt: accessory.UpdatedAt,
-			CreatedAt: accessory.CreatedAt,
-		})
-	}
+	accessoriesResponse := mappers.MapAccessoriesResponse(accessories)
 
 	return accessoriesResponse, nil
 }
