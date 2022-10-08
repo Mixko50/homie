@@ -11,12 +11,9 @@ struct States: View {
     var body: some View {
         NavigationView {
             List {
-                StateBox()
-                StateBox()
-                StateBox()
-                StateBox()
-                StateBox()
-                StateBox()
+                ForEach (0..<20) {_ in
+                    StateBox()
+                }
             }.navigationTitle("All States")
         }
     }

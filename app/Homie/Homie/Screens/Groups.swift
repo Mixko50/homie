@@ -9,7 +9,15 @@ import SwiftUI
 
 struct Groups: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List {
+                ForEach (0..<20) {_ in
+                    NavigationLink(destination: GroupNav()) {
+                        GroupList().padding(.vertical,7)
+                    }
+                }
+            }.navigationTitle("Groups")
+        }
     }
 }
 
