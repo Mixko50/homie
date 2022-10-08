@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B494D34C28EE05AB002EC753 /* GroupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B494D34B28EE05AB002EC753 /* GroupContainer.swift */; };
+		B40C1D9928EED8B1005CF7AD /* GroupNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40C1D9828EED8B1005CF7AD /* GroupNav.swift */; };
+		B4705D9D28EEC86000729699 /* GroupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4705D9C28EEC86000729699 /* GroupList.swift */; };
+		B481DAB328F0078F00621A78 /* SimpleStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481DAB228F0078F00621A78 /* SimpleStruct.swift */; };
 		B4CE82AC28EDE1F5001889CE /* HomieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CE82AB28EDE1F5001889CE /* HomieApp.swift */; };
 		B4CE82AE28EDE1F5001889CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CE82AD28EDE1F5001889CE /* ContentView.swift */; };
 		B4CE82B028EDE1F8001889CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4CE82AF28EDE1F8001889CE /* Assets.xcassets */; };
@@ -40,7 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B494D34B28EE05AB002EC753 /* GroupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupContainer.swift; sourceTree = "<group>"; };
+		B40C1D9828EED8B1005CF7AD /* GroupNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNav.swift; sourceTree = "<group>"; };
+		B4705D9C28EEC86000729699 /* GroupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupList.swift; sourceTree = "<group>"; };
+		B481DAB228F0078F00621A78 /* SimpleStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleStruct.swift; sourceTree = "<group>"; };
 		B4CE82A828EDE1F5001889CE /* Homie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CE82AB28EDE1F5001889CE /* HomieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomieApp.swift; sourceTree = "<group>"; };
 		B4CE82AD28EDE1F5001889CE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B481DAB128F0076300621A78 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				B481DAB228F0078F00621A78 /* SimpleStruct.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
 		B4CE829F28EDE1F5001889CE = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +118,7 @@
 		B4CE82AA28EDE1F5001889CE /* Homie */ = {
 			isa = PBXGroup;
 			children = (
+				B481DAB128F0076300621A78 /* Types */,
 				B4CE82E028EDE9B8001889CE /* Components */,
 				B4CE82D528EDE3D3001889CE /* Screens */,
 				B4CE82AB28EDE1F5001889CE /* HomieApp.swift */,
@@ -156,7 +169,8 @@
 			isa = PBXGroup;
 			children = (
 				B4CE82E128EDE9D0001889CE /* StateBox.swift */,
-				B494D34B28EE05AB002EC753 /* GroupContainer.swift */,
+				B4705D9C28EEC86000729699 /* GroupList.swift */,
+				B40C1D9828EED8B1005CF7AD /* GroupNav.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -291,14 +305,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B481DAB328F0078F00621A78 /* SimpleStruct.swift in Sources */,
 				B4CE82DF28EDE7E4001889CE /* Settings.swift in Sources */,
+				B40C1D9928EED8B1005CF7AD /* GroupNav.swift in Sources */,
 				B4CE82E228EDE9D0001889CE /* StateBox.swift in Sources */,
 				B4CE82DB28EDE7BB001889CE /* Accessories.swift in Sources */,
+				B4705D9D28EEC86000729699 /* GroupList.swift in Sources */,
 				B4CE82D728EDE769001889CE /* States.swift in Sources */,
 				B4CE82AE28EDE1F5001889CE /* ContentView.swift in Sources */,
 				B4CE82AC28EDE1F5001889CE /* HomieApp.swift in Sources */,
 				B4CE82D928EDE7B1001889CE /* Groups.swift in Sources */,
-				B494D34C28EE05AB002EC753 /* GroupContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

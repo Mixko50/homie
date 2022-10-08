@@ -11,14 +11,12 @@ struct ContentView: View {
     var body: some View {
         TabView {
             States()
-                .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "list.dash")
                     Text("States")
                 }
          
             Groups()
-                .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "person.3.fill")
                     Text("Groups")

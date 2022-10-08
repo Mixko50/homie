@@ -21,7 +21,7 @@ struct StateBox: View {
                     }
                 }
                 Spacer()
-                Text(sampleText).font(.system(size: 18, weight: .bold, design: .rounded))
+                Text(sampleText).font(.system(size: 18, weight: .bold, design: .rounded)).foregroundColor(sampleText == "on" ? Color.green : Color.red)
             }
         }
     }
