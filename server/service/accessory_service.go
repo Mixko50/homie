@@ -34,6 +34,7 @@ func (s accessoryService) GetAllAccessories() ([]response.GetAccessoryResponse, 
 			Id:        accessory.Id,
 			Name:      accessory.Name,
 			GroupId:   accessory.GroupId,
+			GroupName: accessory.Group.Name,
 			UpdatedAt: accessory.UpdatedAt,
 			CreatedAt: accessory.CreatedAt,
 		})
@@ -56,6 +57,7 @@ func (s accessoryService) GetAccessoryById(id uint64) (*response.GetAccessoryRes
 		Id:        accessory.Id,
 		Name:      accessory.Name,
 		GroupId:   accessory.GroupId,
+		GroupName: accessory.Group.Name,
 		UpdatedAt: accessory.UpdatedAt,
 		CreatedAt: accessory.CreatedAt,
 	}
@@ -118,6 +120,7 @@ func (s accessoryService) GetAllAccessoriesInGroup(id uint64) ([]response.GetAcc
 			Id:        accessory.Id,
 			Name:      accessory.Name,
 			GroupId:   accessory.GroupId,
+			GroupName: accessory.Group.Name,
 			UpdatedAt: accessory.UpdatedAt,
 			CreatedAt: accessory.CreatedAt,
 		})
